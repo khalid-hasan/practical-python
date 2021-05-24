@@ -1,6 +1,6 @@
 # pcost.py
 #
-# Exercise 1.30
+# Exercise 1.31
 
 import gzip
 
@@ -12,9 +12,12 @@ def portfolio_cost(filename):
         headers = next(f).split(',')
 
         for line in f:
-                row = line.split(',')
-                total_cost = total_cost + (int(row[1]) * float(row[2]))
-                #print(row)
+                try:
+                        row = line.split(',')
+                        total_cost = total_cost + (int(row[1]) * float(row[2]))
+                        #print(row)
+                except ValueError:
+                        print('Data Missing', line)
         f.close()
         return total_cost
 
