@@ -1,17 +1,22 @@
 # pcost.py
 #
-# Exercise 1.27
+# Exercise 1.30
 
 import gzip
 
-total_cost = 0
 
-f = gzip.open('Data/portfolio.csv.gz', 'rt')
-headers = next(f).split(',')
 
-for line in f:
-        row = line.split(',')
-        total_cost = total_cost + (int(row[1]) * float(row[2]))
-        print(row)
-print('Total cost', total_cost)
-f.close()
+def portfolio_cost(filename):
+        total_cost = 0
+        f = open(filename, 'rt')
+        headers = next(f).split(',')
+
+        for line in f:
+                row = line.split(',')
+                total_cost = total_cost + (int(row[1]) * float(row[2]))
+                #print(row)
+        f.close()
+        return total_cost
+
+cost = portfolio_cost('Data/portfolio.csv')
+print('Total cost:', cost)
