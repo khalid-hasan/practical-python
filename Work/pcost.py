@@ -2,10 +2,11 @@
 #
 # Exercise 1.27
 
+import gzip
 
 total_cost = 0
 
-f = open('Data/portfolio.csv', 'rt')
+f = gzip.open('Data/portfolio.csv.gz', 'rt')
 headers = next(f).split(',')
 
 for line in f:
