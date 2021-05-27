@@ -40,9 +40,23 @@ def read_prices(filename):
         f.close()
         return dictionary
 
-cost = read_portfolio('Data/portfolio.csv')
-print('Total Cost', cost[0])
-print('Dictionary', cost[1])
+def report(portfolio, prices_dictionary):
+    data = []
+    for row in portfolio:
+        current_price = prices_dictionary[row['name']]
+        change = current_price - row['prices']
+        report = (row['name'], row['shares'], current_price, change)
+        data.append(report)
+    return data
 
-dict_list = read_prices('Data/prices.csv')
-print(dict_list)
+portfolio = read_portfolio('Data/portfolio.csv')
+print('Total Cost', portfolio[0])
+print('Dictionary', portfolio[1])
+
+prices_dictionary = read_prices('Data/prices.csv')
+print(prices_dictionary)
+
+report = report(portfolio[1], prices_dictionary)
+print('Name\t', 'Shares\t', 'Price\t', 'Change')
+for row in report:
+    print('%s\t %d\t %.2f\t %.2f' % row)
