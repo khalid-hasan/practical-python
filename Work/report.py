@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 2.4
+# Exercise 2.6
 
 import gzip
 import csv
@@ -15,24 +15,34 @@ def read_portfolio(filename):
         headers = next(rows)
 
         for row in rows:
-                try:
-                        holding = {
-                            'name': row[0], 
-                            'shares': int(row[1]), 
-                            'prices': float(row[2])
-                        }
-                        dict_list.append(holding)
-                        total += int(row[1]) * float(row[2])
-                except ValueError:
-                        print('Data Missing', row)
+                holding = {
+                        'name': row[0], 
+                        'shares': int(row[1]), 
+                        'prices': float(row[2])
+                }
+                dict_list.append(holding)
+                total += int(row[1]) * float(row[2])
+
         f.close()
         return [total, dict_list]
 
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = 'Data/portfolio.csv'
+def read_prices(filename):
+        dictionary = {}
+        f = open(filename, 'rt')
+        rows= csv.reader(f)
 
-cost = read_portfolio(filename)
+        for row in rows:
+                try:
+                        dictionary[row[0]] = float(row[1])
+                        
+                except IndexError:
+                        pass
+        f.close()
+        return dictionary
+
+cost = read_portfolio('Data/portfolio.csv')
 print('Total Cost', cost[0])
 print('Dictionary', cost[1])
+
+dict_list = read_prices('Data/prices.csv')
+print(dict_list)
