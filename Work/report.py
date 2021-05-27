@@ -61,4 +61,5 @@ headers = ('Name', 'Shares', 'Price', 'Change')
 print('%10s %10s %10s %10s' % headers)
 print(10*'-' + ' ' + 10*'-' + ' ' + 10*'-' + ' ' + 10*'-')
 for name, shares, prices, change in report:
-    print(f'{name:>10s} {shares:>10d} {prices:>10.2f} {change:>10.2f}')
+        prices = '$' + str(prices)
+        print(f'{name:>10s} {shares:>10d} {prices:>10s} {change:>10.2f}')
