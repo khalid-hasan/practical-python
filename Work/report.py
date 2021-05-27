@@ -14,15 +14,18 @@ def read_portfolio(filename):
         rows= csv.reader(f)
         headers = next(rows)
 
-        for row in rows:
-                holding = {
-                        'name': row[0], 
-                        'shares': int(row[1]), 
-                        'prices': float(row[2])
-                }
-                dict_list.append(holding)
-                total += int(row[1]) * float(row[2])
-
+        for rowno, row in enumerate(rows, start=1):
+                record = dict(zip(headers, row))
+                try:
+                        holding = {
+                                'name': record['name'], 
+                                'shares': int(record['shares']), 
+                                'prices': float(record['price'])
+                        }
+                        dict_list.append(holding)
+                        total += int(row[1]) * float(row[2])
+                except ValueError:
+                        print(f'Row {rowno}: Couldn\'t convert: {row}')
         f.close()
         return [total, dict_list]
 
