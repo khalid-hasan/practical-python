@@ -13,12 +13,12 @@ def portfolio_cost(filename):
         rows= csv.reader(f)
         headers = next(rows)
 
-        for row in rows:
+        for rowno, row in enumerate(rows, start=1):
                 try:
                         total_cost = total_cost + (int(row[1]) * float(row[2]))
                         #print(row)
                 except ValueError:
-                        print('Data Missing', row)
+                        print(f'Row {rowno}: Couldn\'t convert: {row}')
         f.close()
         return total_cost
 
