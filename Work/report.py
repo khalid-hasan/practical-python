@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 2.6
+# Exercise 2.9
 
 import gzip
 import csv
@@ -40,7 +40,7 @@ def read_prices(filename):
         f.close()
         return dictionary
 
-def report(portfolio, prices_dictionary):
+def make_report(portfolio, prices_dictionary):
     data = []
     for row in portfolio:
         current_price = prices_dictionary[row['name']]
@@ -56,7 +56,6 @@ print('Dictionary', portfolio[1])
 prices_dictionary = read_prices('Data/prices.csv')
 print(prices_dictionary)
 
-report = report(portfolio[1], prices_dictionary)
-print('Name\t', 'Shares\t', 'Price\t', 'Change')
+report = make_report(portfolio[1], prices_dictionary)
 for row in report:
-    print('%s\t %d\t %.2f\t %.2f' % row)
+    print(row)
