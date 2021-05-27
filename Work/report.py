@@ -57,5 +57,7 @@ prices_dictionary = read_prices('Data/prices.csv')
 print(prices_dictionary)
 
 report = make_report(portfolio[1], prices_dictionary)
+headers = ('Name', 'Shares', 'Price', 'Change')
+print('%10s %10s %10s %10s' % headers)
 for name, shares, prices, change in report:
     print(f'{name:>10s} {shares:>10d} {prices:>10.2f} {change:>10.2f}')
