@@ -52,12 +52,12 @@ def make_report(portfolio, prices_dictionary):
         data.append(report)
     return data
 
-def print_report(report):
-        portfolio = read_portfolio(report)
+def portfolio_report(portfolio_filename, prices_filename):
+        portfolio = read_portfolio(portfolio_filename)
         print('Total Cost', portfolio[0])
         print('Dictionary', portfolio[1])
 
-        prices_dictionary = read_prices('Data/prices.csv')
+        prices_dictionary = read_prices(prices_filename)
         print(prices_dictionary)
 
         report = make_report(portfolio[1], prices_dictionary)
@@ -68,4 +68,4 @@ def print_report(report):
                 prices = '$' + str(prices)
                 print(f'{name:>10s} {shares:>10d} {prices:>10s} {change:>10.2f}')
 
-print_report('Data/portfolio.csv')
+portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
