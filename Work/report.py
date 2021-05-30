@@ -52,17 +52,20 @@ def make_report(portfolio, prices_dictionary):
         data.append(report)
     return data
 
-portfolio = read_portfolio('Data/portfolio.csv')
-print('Total Cost', portfolio[0])
-print('Dictionary', portfolio[1])
+def print_report(report):
+        portfolio = read_portfolio(report)
+        print('Total Cost', portfolio[0])
+        print('Dictionary', portfolio[1])
 
-prices_dictionary = read_prices('Data/prices.csv')
-print(prices_dictionary)
+        prices_dictionary = read_prices('Data/prices.csv')
+        print(prices_dictionary)
 
-report = make_report(portfolio[1], prices_dictionary)
-headers = ('Name', 'Shares', 'Price', 'Change')
-print('%10s %10s %10s %10s' % headers)
-print(10*'-' + ' ' + 10*'-' + ' ' + 10*'-' + ' ' + 10*'-')
-for name, shares, prices, change in report:
-        prices = '$' + str(prices)
-        print(f'{name:>10s} {shares:>10d} {prices:>10s} {change:>10.2f}')
+        report = make_report(portfolio[1], prices_dictionary)
+        headers = ('Name', 'Shares', 'Price', 'Change')
+        print('%10s %10s %10s %10s' % headers)
+        print(10*'-' + ' ' + 10*'-' + ' ' + 10*'-' + ' ' + 10*'-')
+        for name, shares, prices, change in report:
+                prices = '$' + str(prices)
+                print(f'{name:>10s} {shares:>10d} {prices:>10s} {change:>10.2f}')
+
+print_report('Data/portfolio.csv')
