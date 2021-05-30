@@ -6,6 +6,9 @@ import csv
 
 def parse_csv(filename, select=None, types=[str, int, float], has_headers=True, delimiter=','):
 
+    if select and not has_headers:
+        raise RuntimeError('select requires column headers')
+        
     with open(filename) as f:
         rows = csv.reader(f, delimiter=delimiter)
 
@@ -41,5 +44,5 @@ def parse_csv(filename, select=None, types=[str, int, float], has_headers=True, 
 
     return records
 
-portfolio = parse_csv('Data/portfolio.dat', types=[str, int, float], has_headers=True, delimiter=' ')
+portfolio = parse_csv('Data/prices.csv', select=['name', 'price'], types=[str, int, float], has_headers=False, delimiter=',')
 print(portfolio)
