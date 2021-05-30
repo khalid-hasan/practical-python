@@ -1,6 +1,6 @@
 # fileparse.py
 #
-# Exercise 3.7
+# Exercise 3.9
 
 import csv
 
@@ -8,7 +8,7 @@ def parse_csv(filename, select=None, types=[str, int, float], has_headers=True, 
 
     if select and not has_headers:
         raise RuntimeError('select requires column headers')
-        
+
     with open(filename) as f:
         rows = csv.reader(f, delimiter=delimiter)
 
@@ -24,7 +24,7 @@ def parse_csv(filename, select=None, types=[str, int, float], has_headers=True, 
             indices = []
 
         records = []
-        for row in rows:
+        for rowno, row in enumerate(rows, 1):
             if not row:   
                 continue
             if select:
@@ -32,7 +32,9 @@ def parse_csv(filename, select=None, types=[str, int, float], has_headers=True, 
             if types:
                 try:
                     row = [func(val) for func, val in zip(types, row)]
-                except ValueError:
+                except ValueError as e:
+                        print(f"Row {rowno}: Couldn't convert {row}")
+                        print(f"Row {rowno}: Reason {e}")
                         pass
 
             if headers:
@@ -44,5 +46,5 @@ def parse_csv(filename, select=None, types=[str, int, float], has_headers=True, 
 
     return records
 
-portfolio = parse_csv('Data/prices.csv', select=['name', 'price'], types=[str, int, float], has_headers=False, delimiter=',')
+portfolio = parse_csv('Data/missing.csv', types=[str, int, float], has_headers=True, delimiter=',')
 print(portfolio)
