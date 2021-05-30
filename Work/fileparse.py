@@ -1,13 +1,13 @@
 # fileparse.py
 #
-# Exercise 3.6
+# Exercise 3.7
 
 import csv
 
-def parse_csv(filename, select=None, types=[str, int, float], has_headers=True):
+def parse_csv(filename, select=None, types=[str, int, float], has_headers=True, delimiter=','):
 
     with open(filename) as f:
-        rows = csv.reader(f)
+        rows = csv.reader(f, delimiter=delimiter)
 
         if(has_headers):
             headers = next(rows)
@@ -41,5 +41,5 @@ def parse_csv(filename, select=None, types=[str, int, float], has_headers=True):
 
     return records
 
-portfolio = parse_csv('Data/prices.csv', types=[str, int, float], has_headers=False)
+portfolio = parse_csv('Data/portfolio.dat', types=[str, int, float], has_headers=True, delimiter=' ')
 print(portfolio)
