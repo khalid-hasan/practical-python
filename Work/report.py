@@ -40,4 +40,11 @@ def portfolio_report(portfolio_filename, prices_filename):
                 prices = '$' + str(prices)
                 print(f'{name:>10s} {shares:>10d} {prices:>10s} {change:>10.2f}')
 
-portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
+def main(argv):
+    if len(argv) != 3:
+        raise SystemExit(f'Usage: {sys.argv[0]} ' 'portfile pricefile')
+    portfolio_report(argv[1], argv[2])
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
