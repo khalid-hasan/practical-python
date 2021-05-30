@@ -1,6 +1,6 @@
 # fileparse.py
 #
-# Exercise 3.10
+# Exercise 3.9
 
 import csv
 
