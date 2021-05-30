@@ -1,10 +1,10 @@
 # fileparse.py
 #
-# Exercise 3.9
+# Exercise 3.10
 
 import csv
 
-def parse_csv(filename, select=None, types=[str, int, float], has_headers=True, delimiter=','):
+def parse_csv(filename, select=None, types=[str, int, float], has_headers=True, delimiter=',', silenced_errors=False):
 
     if select and not has_headers:
         raise RuntimeError('select requires column headers')
@@ -33,9 +33,10 @@ def parse_csv(filename, select=None, types=[str, int, float], has_headers=True, 
                 try:
                     row = [func(val) for func, val in zip(types, row)]
                 except ValueError as e:
+                    if not silenced_errors:
                         print(f"Row {rowno}: Couldn't convert {row}")
                         print(f"Row {rowno}: Reason {e}")
-                        pass
+                    pass
 
             if headers:
                 record = dict(zip(headers, row))
@@ -46,5 +47,5 @@ def parse_csv(filename, select=None, types=[str, int, float], has_headers=True, 
 
     return records
 
-portfolio = parse_csv('Data/missing.csv', types=[str, int, float], has_headers=True, delimiter=',')
+portfolio = parse_csv('Data/missing.csv', types=[str, int, float], has_headers=True, delimiter=',', silenced_errors=True)
 print(portfolio)
