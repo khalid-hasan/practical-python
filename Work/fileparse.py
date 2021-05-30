@@ -1,15 +1,18 @@
 # fileparse.py
 #
-# Exercise 3.3
+# Exercise 3.6
 
 import csv
 
-def parse_csv(filename, select=None, types=[str, int, float]):
+def parse_csv(filename, select=None, types=[str, int, float], has_headers=True):
 
     with open(filename) as f:
         rows = csv.reader(f)
 
-        headers = next(rows)
+        if(has_headers):
+            headers = next(rows)
+        else:
+            headers = []
 
         if select:
             indices = [headers.index(colname) for colname in select]
@@ -21,15 +24,22 @@ def parse_csv(filename, select=None, types=[str, int, float]):
         for row in rows:
             if not row:   
                 continue
-            if indices:
+            if select:
                 row = [ row[index] for index in indices ]
             if types:
-                row = [func(val) for func, val in zip(types, row) ]
+                try:
+                    row = [func(val) for func, val in zip(types, row)]
+                except ValueError:
+                        pass
 
-            record = dict(zip(headers, row))
+            if headers:
+                record = dict(zip(headers, row))
+            else:
+                record = tuple(row)
+
             records.append(record)
 
     return records
 
-portfolio = parse_csv('Data/portfolio.csv', ['name', 'shares'], types=[str])
+portfolio = parse_csv('Data/prices.csv', types=[str, int, float], has_headers=False)
 print(portfolio)
