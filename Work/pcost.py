@@ -1,6 +1,6 @@
 # pcost.py
 #
-# Exercise 1.33
+# Exercise 3.16
 
 import gzip
 import csv

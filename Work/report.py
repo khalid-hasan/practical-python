@@ -1,6 +1,6 @@
 # report.py
 #
-# Exercise 2.11
+# Exercise 3.16
 
 import gzip
 import csv
@@ -42,7 +42,7 @@ def portfolio_report(portfolio_filename, prices_filename):
 
 def main(argv):
     if len(argv) != 3:
-        raise SystemExit(f'Usage: {sys.argv[0]} ' 'portfile pricefile')
+        raise SystemExit('Usage: %s portfile pricefile' % argv[0])
     portfolio_report(argv[1], argv[2])
 
 if __name__ == '__main__':
